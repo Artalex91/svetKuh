@@ -2,15 +2,16 @@
 #include <Arduino.h>
 
 //порты
-    #define led1Pin // 40см
-    #define led2Pin // 100см
-    #define led3Pin // 60см
-    #define pirPin //  датчик движения
-    #define but1Pin // кнопка под микроволновкой
-    #define but2Pin // кнопка в шкафчике
+    #define led1Pin 3// 40см
+    #define led2Pin 5// 100см
+    #define led3Pin 6// 60см
+    #define pirPin  4//  датчик движения
+    #define but1Pin 7// кнопка под микроволновкой
+    #define but2Pin 8// кнопка в шкафчике
 
 //константы
     const uint8_t svetSpeed = 8; // чем больше число - тем мдленнее розжиг
+    const uint16_t pirDelay = 1000*60*2; // 2 мин
 
 //переменные
     bool svet = false;          // хранение состояния света
@@ -18,6 +19,10 @@
     uint8_t brig1 = 0;          // 
     uint8_t brig2 = 0;          // Яркость в данный момент
     uint8_t brig3 = 0;          //
+    bool pir = false;
+    bool but1 = false;
+    bool but2 = false;
+    uint32_t pirMill = 0;
 
 void setup() {
     pinMode(led1Pin, OUTPUT);
@@ -35,6 +40,20 @@ void readPorts(){
     pir  = digitalRead(pirPin);
     but1 = digitalRead(but1Pin);
     but2 = digitalRead(but2Pin);
+
+}
+
+void task(){
+
+    if(pir==true){
+        svet = true;
+        pirMill = millis();
+
+    }    
+    else if(pir==false && millis()-pirMill>pirDelay){
+        svet = false;
+
+    }
 
 }
 
@@ -66,6 +85,7 @@ void writePorts(){
 void loop() {
 
     readPorts();
+    task();
     svetAnalog();
     writePorts();
 
