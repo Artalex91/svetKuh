@@ -10,8 +10,25 @@
 
 void setup() {
 
+ pinMode(led1Pin, OUTPUT);
+ pinMode(led2Pin, OUTPUT);
+ pinMode(led3Pin, OUTPUT);
+
+ pinMode(pirPin,  INPUT);
+ pinMode(but1Pin, INPUT);
+ pinMode(but2Pin, INPUT);
+
 }
 
+void svetAnalog(){
+ 
+ 
+
+}
+
+
 void loop() {
+
+ svetAnalog();
 
 }
