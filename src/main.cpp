@@ -2,12 +2,11 @@
 #include <Arduino.h>
 
 //порты
-    #define led1Pin 3// 40см
+    #define led1Pin 6// 40см
     #define led2Pin 5// 100см
-    #define led3Pin 6// 60см
+    #define led3Pin 3// 60см
     #define pirPin  4//  датчик движения
-    #define but1Pin 7// кнопка под микроволновкой
-    //#define but2Pin 8// кнопка в шкафчике
+    #define but1Pin 2// кнопка под микроволновкой
 
 //константы
     const uint8_t svetSpeed = 8; // чем больше число - тем мдленнее розжиг
@@ -130,9 +129,9 @@ void svetAnalog(){
 
 void writePorts(){
 
-    digitalWrite(led1Pin, brig1);
-    digitalWrite(led2Pin, brig2);
-    digitalWrite(led3Pin, brig3);
+    analogWrite(led1Pin, brig1);
+    analogWrite(led2Pin, brig2);
+    analogWrite(led3Pin, brig3);
 
 }
 
