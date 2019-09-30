@@ -22,7 +22,6 @@
     uint8_t brig3 = 0;          //
     bool pir = false;
     bool but1 = false;
-    //bool but2 = false;
     uint32_t pirMill = 0;
     bool but1Flag = false;
     uint32_t but1FlagMill = 0;
@@ -39,7 +38,6 @@ void setup() {
 
     pinMode(pirPin,  INPUT);
     pinMode(but1Pin, INPUT);
-    //pinMode(but2Pin, INPUT);
 
 }
 
@@ -47,7 +45,6 @@ void readPorts(){
 
     pir  = digitalRead(pirPin);
     but1 = digitalRead(but1Pin);
-    but2 = digitalRead(but2Pin);
 
 }
 
