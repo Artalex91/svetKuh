@@ -9,9 +9,9 @@
     #define but1Pin 2// кнопка под микроволновкой
 
 //константы
-    const uint8_t svetSpeed = 8; // чем больше число - тем мдленнее розжиг
-    const uint32_t pirDelay = 1000*60*2; // 2 мин (затухание света при отсутствии движения 2 мин(в авторежиме))
-    const uint32_t noDetectDelay = 1000*60*120; // 120 мин (автовыключение ручного режима при отсутствии любого движениия в течении 120мин(в ручном режиме))
+    const uint8_t svetSpeed = 12; // чем больше число - тем мдленнее розжиг
+    const uint32_t pirDelay = 120000; // 2 мин (затухание света при отсутствии движения 2 мин(в авторежиме))
+    const uint32_t noDetectDelay = 3600000; // 120 мин (автовыключение ручного режима при отсутствии любого движениия в течении 120мин(в ручном режиме))
 
 //переменные
     bool svet = false;          // хранение состояния света
@@ -60,6 +60,8 @@ void button(){
         but1FlagMill = 0;
     }
 
+    if(but1 == true && millis() - but1FlagMill > 2000) brig3 = 25;
+
 }
 
 void task(){
@@ -72,7 +74,7 @@ void task(){
         if(longPress1 == true){    //возврат в авторежим по долгому нажатию
             longPress1 = false;
             manualMode = false;
-            brig3 = 120;
+            brig3 = 5;
         }
 
         if(pir == false && noDetectFlag == false){  //если нет движения - вкл счетчик
@@ -105,7 +107,7 @@ void task(){
         if(shortPress1 == true){     //вкл ручной режим по короткому нажатию
             shortPress1 = false;
             manualMode = true;
-            brig2 = 120;
+            brig2 = 5;
         }
     }
 }
