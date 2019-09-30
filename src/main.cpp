@@ -11,9 +11,11 @@
 //константы
     const uint8_t svetSpeed = 12; // чем больше число - тем мдленнее розжиг
     const uint32_t pirDelay = 120000; // 2 мин (затухание света при отсутствии движения 2 мин(в авторежиме))
-    const uint32_t noDetectDelay = 3600000; // 120 мин (автовыключение ручного режима при отсутствии любого движениия в течении 120мин(в ручном режиме))
+    const uint32_t noDetectDelayShort = 3600000; // 1час задержка в ручном режиме по короткому нажатию
+    const uint32_t noDetectDelayLong = 14400000; // 4часа задержка в ручном при долгом нажатии
 
 //переменные
+    uint32_t noDetectDelay = 3600000; // 60 мин (автовыключение ручного режима при отсутствии любого движениия в течении 60мин(в ручном режиме))
     bool svet = false;          // хранение состояния света
     uint32_t svetMill = 0;
     uint8_t brig1 = 0;          // 
@@ -60,7 +62,7 @@ void button(){
         but1FlagMill = 0;
     }
 
-    if(but1 == true && millis() - but1FlagMill > 2000) brig3 = 25;
+    if(but1 == true && millis() - but1FlagMill > 2000) brig3 = 5;
 
 }
 
@@ -73,6 +75,7 @@ void task(){
         }
         if(longPress1 == true){    //возврат в авторежим по долгому нажатию
             longPress1 = false;
+            noDetectDelay = noDetectDelayShort;
             manualMode = false;
             brig3 = 5;
         }
@@ -88,6 +91,7 @@ void task(){
 
         if(millis()-noDetectMotionMill>noDetectDelay){      // автоотключение ручного режима через 2 часа
             manualMode = false;
+            noDetectDelay = noDetectDelayShort;
             noDetectMotionMill = 0;
         }
 
@@ -106,8 +110,15 @@ void task(){
 
         if(shortPress1 == true){     //вкл ручной режим по короткому нажатию
             shortPress1 = false;
+            noDetectDelay = noDetectDelayShort;
             manualMode = true;
             brig2 = 5;
+        }
+            if(longPress1 == true){     //вкл ручной режим по длинному нажатию
+            longPress1 = false;
+            noDetectDelay = noDetectDelayLong;
+            manualMode = true;
+            brig1 = 5;
         }
     }
 }
