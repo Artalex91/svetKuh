@@ -91,6 +91,7 @@ void task(){
 
         if(millis()-noDetectMotionMill>noDetectDelay){      // автоотключение ручного режима через 2 часа
             manualMode = false;
+            noDetectFlag = false;
             noDetectDelay = noDetectDelayShort;
             noDetectMotionMill = 0;
         }
