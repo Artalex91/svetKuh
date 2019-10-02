@@ -57,7 +57,7 @@ void button(){
     }
     else if(but1 == false && but1Flag == true){
         but1Flag = false;
-        if(millis()-but1FlagMill<2000) {shortPress1 = true;}
+        if(millis()-but1FlagMill<1500) {shortPress1 = true;}
         else                           {longPress1 = true; }
         but1FlagMill = 0;
     }
