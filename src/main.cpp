@@ -31,6 +31,7 @@
     bool manualMode = false;
     uint32_t noDetectMotionMill = 0;
     bool noDetectFlag = false;
+    bool firstCycleM = false;
 
 void setup() {
     pinMode(led1Pin, OUTPUT);
@@ -69,6 +70,8 @@ void button(){
 void task(){
 
     if(manualMode == true){ // активен ручной режим
+        if(firstCycleM == false) {noDetectDelay = millis(); firstCycleM = true;}// при входе в авторежим
+
         if(shortPress1 == true){ // вкл/выкл свет в ручную
             shortPress1 = false;
             svet = !svet;             
@@ -98,6 +101,7 @@ void task(){
 
     }
     else{ //активен авто режим
+        if(firstCycleM == true) firstCycleM = false; // сброс флага
 
         if(pir==true){                             // вкл свет при движении
             svet = true;
