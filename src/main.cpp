@@ -133,8 +133,8 @@ void svetAnalog(){
     if(svet==true && millis()-svetMill>svetSpeed){
         svetMill = millis();
         if(brig1 != 255)                ++brig1;
-        if(brig2 != 255 && brig3 > 150) ++brig2;
-        if(brig3 != 255 && brig1 > 150) ++brig3;
+        if(brig2 != 255 && brig3 > 100) ++brig2;
+        if(brig3 != 255 && brig1 > 100) ++brig3;
     }
     if(svet==false && millis()-svetMill>svetSpeed){
         svetMill = millis();
