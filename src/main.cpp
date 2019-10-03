@@ -70,7 +70,7 @@ void button(){
 void task(){
 
     if(manualMode == true){ // активен ручной режим
-        if(firstCycleM == false) {noDetectDelay = millis(); firstCycleM = true;}// при входе в авторежим
+        if(firstCycleM == false) {noDetectMotionMill = millis(); firstCycleM = true;}// при входе в авторежим
 
         if(shortPress1 == true){ // вкл/выкл свет в ручную
             shortPress1 = false;
