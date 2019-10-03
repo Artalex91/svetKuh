@@ -32,6 +32,7 @@
     uint32_t noDetectMotionMill = 0;
     bool noDetectFlag = false;
     bool firstCycleM = false;
+    bool pirFlag = false;
 
 void setup() {
     pinMode(led1Pin, OUTPUT);
@@ -81,6 +82,7 @@ void task(){
             noDetectDelay = noDetectDelayShort;
             manualMode = false;
             brig3 = 5;
+            noDetectFlag = false;
         }
 
         if(pir == false && noDetectFlag == false){  //если нет движения - вкл счетчик
@@ -96,19 +98,25 @@ void task(){
             manualMode = false;
             noDetectFlag = false;
             noDetectDelay = noDetectDelayShort;
-            noDetectMotionMill = 0;
+            noDetectMotionMill = millis();
         }
 
     }
     else{ //активен авто режим
         if(firstCycleM == true) firstCycleM = false; // сброс флага
 
-        if(pir==true){                             // вкл свет при движении
+        if(pir==true && pirFlag == false){                             // вкл свет при движении
+            pirFlag = true;
             svet = true;
             pirMill = millis();
 
         }    
-        else if(pir==false && millis()-pirMill>pirDelay){       // выкл свет если движения нет n время
+        if(pir==false && pirFlag == true){
+            pirFlag = false;
+            pirMill = millis();
+        }
+
+        else if(svet==true && pir==false && millis()-pirMill>pirDelay){       // выкл свет если движения нет n время
             svet = false;
 
         }
