@@ -33,6 +33,7 @@
     bool noDetectFlag = false;
     bool firstCycleM = false;
     bool pirFlag = false;
+    uint16_t longPressDelay = 1000; // задержка долгого нажатия
 
 void setup() {
     pinMode(led1Pin, OUTPUT);
@@ -59,12 +60,12 @@ void button(){
     }
     else if(but1 == false && but1Flag == true){
         but1Flag = false;
-        if(millis()-but1FlagMill<1500) {shortPress1 = true;}
+        if(millis()-but1FlagMill<longPressDelay) {shortPress1 = true;}
         else                           {longPress1 = true; }
         but1FlagMill = 0;
     }
 
-    if(but1 == true && millis() - but1FlagMill > 2000) brig3 = 5;
+    if(but1 == true && millis() - but1FlagMill > longPressDelay) brig3 = 5;
 
 }
 
